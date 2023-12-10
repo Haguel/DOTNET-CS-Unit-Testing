@@ -2,12 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Project_Management
 {
     public class Helper
     {
+        public bool ContainsAttributes(String html)
+        {
+            string pattern = @"<(\w+\s+[^=>])*(\w+=[^>]+)+>";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            return regex.IsMatch(html);
+        }
+
+        public String EscapeHtml(String html) 
+        {
+            return html.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
+        }
+
         public String Ellipsis(String input, int length)
         {
             if (length < 0) 
